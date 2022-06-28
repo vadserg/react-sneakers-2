@@ -1,0 +1,58 @@
+.card {
+	padding: 30px;
+	width: 220px;
+	height: 260px;
+	background: #ffffff;
+	border: 1px solid #f3f3f3;
+	border-radius: 40px;
+	transition: 0.2s;
+
+	&:hover {
+		border: 1px solid #f8f8f8;
+		box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.07);
+		transform: translateY(-10px);
+	}
+	.favorite {
+		position: absolute;
+		cursor: pointer;
+	}
+
+	p {
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 17px;
+		color: #000000;
+	}
+
+	.cardBottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 14px;
+
+		.plus {
+			cursor: pointer;
+		}
+	}
+
+	.cardPrice {
+		span {
+			display: block;
+			font-style: normal;
+			font-weight: 500;
+			font-size: 11px;
+			line-height: 13px;
+			text-transform: uppercase;
+			color: #bdbdbd;
+		}
+
+		b {
+			font-style: normal;
+			font-weight: 700;
+			font-size: 14px;
+			line-height: 17px;
+			color: #000000;
+		}
+	}
+}
