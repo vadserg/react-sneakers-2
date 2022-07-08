@@ -16,12 +16,12 @@ function Header(props) {
 					<img src='img/cart.svg' alt='cart' />
 					<span>1205 руб.</span>
 				</li>
-				<li>
+				<li className='favoritBtn'>
 					<Link to='/favorits'>
 						<img src='img/favorite.svg' alt='favorite' />
 					</Link>
 				</li>
-				<li>
+				<li className='userBtn'>
 					<img src='img/user.svg' alt='user' />
 				</li>
 			</ul>

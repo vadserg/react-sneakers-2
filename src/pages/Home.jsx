@@ -12,7 +12,7 @@ function Home({ items, addToCart, addToFavorit, isLoading }) {
 	const renderItems = () => {
 		return (
 			isLoading
-				? items
+				? items // первоначально при загрузке товаров - массив из 8 пустых элементов
 				: items.filter(item =>
 						item.model.toLowerCase().includes(searchValue.toLowerCase())
 				  )

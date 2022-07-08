@@ -1,6 +1,10 @@
+import React from 'react';
+import { AppContext } from '../App';
 import Card from '../components/Card/Card';
 
-function Favorits({ items, addToFavorit, addToCart }) {
+function Favorits({ addToFavorit, addToCart }) {
+	const { favoritItems } = React.useContext(AppContext);
+
 	return (
 		<div className='content'>
 			<div className='contentInfo'>
@@ -8,12 +12,10 @@ function Favorits({ items, addToFavorit, addToCart }) {
 			</div>
 
 			<div className='cards'>
-				{items.map(item => (
+				{favoritItems.map(item => (
 					<Card
 						key={item.code}
 						{...item}
-						added={item.isAdded}
-						favorited={true}
 						onFavorit={addToFavorit}
 						onPlus={addToCart}
 					/>

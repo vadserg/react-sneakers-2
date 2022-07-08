@@ -17,19 +17,19 @@ function Card({
 	const [isFavorited, setFavorit] = React.useState(isFavorit);
 
 	const handleClickPlus = () => {
-		setAdded(!isAdded);
-		let isAdd = !isAdded;
-		onPlus({ id, code, model, price, isAdd });
+		isAdd = !isAdded;
+		setAdded(isAdd);
+		onPlus({ id, code, model, price, isAdd, isFavorit });
 	};
 	const handleClickFavorit = () => {
-		setFavorit(!isFavorited);
-		let isFavorit = !isFavorited;
-		onFavorit({ id, code, model, price, isFavorit });
+		setFavorit(!isFavorit);
+		isFavorit = !isFavorited;
+		onFavorit({ id, code, model, price, isFavorit, isAdd });
 	};
 
 	return (
 		<div className={styles.card}>
-			{loading ? (
+			{loading ? ( // при загрузке товаров рендерим заглушки с анимацией
 				<ContentLoader
 					speed={1}
 					width={220}
@@ -48,10 +48,12 @@ function Card({
 					<rect x='118' y='154' rx='10' ry='10' width='32' height='32' />
 				</ContentLoader>
 			) : (
+				// после загрузки товаров рендерим их
 				<>
-					<div className={styles.favorite} onClick={handleClickFavorit}>
+					<div onClick={handleClickFavorit}>
 						<img
-							src={isFavorit ? '/img/liked.svg' : '/img/unliked.svg'}
+							className={styles.favorit}
+							src={isFavorit ? '/img/liked.svg' : '/img/unliked.png'}
 							alt='like'
 						/>
 					</div>

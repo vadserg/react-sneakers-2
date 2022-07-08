@@ -68,8 +68,15 @@ header {
 		padding: 0;
 		margin: 0;
 
-		.cartBtn {
+		.cartBtn,
+		.favoritBtn,
+		.userBtn {
 			cursor: pointer;
+			opacity: 0.5;
+
+			&:hover {
+				opacity: 1;
+			}
 		}
 		li {
 			list-style-type: none;
@@ -121,6 +128,12 @@ header {
 			img {
 				width: 20px;
 				height: 20px;
+				cursor: pointer;
+				opacity: 0.5;
+
+				&:hover {
+					opacity: 1;
+				}
 			}
 		}
 	}
@@ -144,10 +157,10 @@ header {
 
 // боковая модалка корзины
 .drawer {
-	position: absolute;
+	position: fixed;
 	width: 385px;
 	height: 100%;
-	right: 0;
+	right: 0px;
 	top: 0;
 	background: #ffffff;
 	box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
@@ -158,6 +171,49 @@ header {
 	.cart {
 		overflow: auto;
 		flex: 1;
+	}
+	.cartEmpty {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		.emptyBox {
+			margin-bottom: 20px;
+		}
+
+		h2 {
+			margin-bottom: 10px;
+		}
+
+		p {
+			text-align: center;
+			margin-bottom: 40px;
+			opacity: 0.5;
+		}
+
+		.backBtn {
+			width: 245px;
+
+			&:hover {
+				img {
+					transition: 0.2s;
+					transform: translateX(-5px);
+				}
+			}
+
+			img {
+				position: absolute;
+				left: 30px;
+				top: 20px;
+			}
+
+			span {
+				margin-left: 20px;
+				color: #ffffff;
+			}
+		}
 	}
 
 	h2 {
@@ -220,6 +276,9 @@ header {
 }
 
 .cartInfo {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
 	ul {
 		padding: 0;
 	}
@@ -253,35 +312,38 @@ header {
 		color: #000000;
 	}
 
-	.greenButton {
+	.orderBtn {
 		position: relative;
 
 		&:hover {
 			img {
 				transform: translateX(5px);
+				transition: 0.2s;
 			}
 		}
-
 		img {
 			position: absolute;
 			right: 30px;
 			top: 20px;
-			transition: 0.2s;
+		}
+
+		span {
+			margin-right: 20px;
+			color: #ffffff;
 		}
 	}
 }
 
 .greenButton {
-	width: 100%;
-	background: #9dd558;
+	position: relative;
+	background: #8dc548;
 	border-radius: 18px;
 	border: 0;
 	padding: 18px;
 	font-style: normal;
-	font-weight: 600;
+	font-weight: 500;
 	font-size: 16px;
 	line-height: 19px;
-	text-align: center;
 	color: #ffffff;
 	transition: 0.2s;
 
