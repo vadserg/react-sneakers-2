@@ -1,11 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { AppContext } from '../App';
 import Card from '../components/Card/Card';
 
 function Orders() {
 	const [orders, setOrders] = useState([]);
-	const [orderDate, setOrderDate] = useState();
 	const [isLoading, setIsLoading] = useState(true);
 
 	React.useEffect(() => {
@@ -14,7 +12,7 @@ function Orders() {
 				const { data } = await axios.get(
 					'https://62af03f03bbf46a3521a4c67.mockapi.io/orders'
 				);
-				//console.log(data);
+				// для конкатенаации всех items в один массив делаем
 				//const items = data.map(obj => obj.items).flat();
 				// либо
 				//const items = data.reduce((prev, obj) => [...prev, ...obj.items], []);
@@ -28,7 +26,6 @@ function Orders() {
 						return obj.items;
 					})
 					.flat();
-				console.log(items);
 				setOrders(items);
 
 				setIsLoading(false);
@@ -38,8 +35,6 @@ function Orders() {
 			}
 		})();
 	}, []);
-
-	console.log(orders);
 
 	return (
 		<div className='content'>
