@@ -5,6 +5,7 @@ import styles from './Card.module.scss';
 function Card({
 	id,
 	code,
+	date,
 	model,
 	price,
 	isAdd,
@@ -12,18 +13,19 @@ function Card({
 	onPlus,
 	onFavorit,
 	loading,
+	orderId,
 }) {
-	const [isAdded, setAdded] = React.useState(isAdd);
-	const [isFavorited, setFavorit] = React.useState(isFavorit);
+	//const [isAdded, setAdded] = React.useState(isAdd);
+	//const [isFavorited, setFavorit] = React.useState(isFavorit);
 
 	const handleClickPlus = () => {
-		isAdd = !isAdded;
-		setAdded(isAdd);
+		//setAdded(!isAdd);
+		isAdd = !isAdd;
 		onPlus({ id, code, model, price, isAdd, isFavorit });
 	};
 	const handleClickFavorit = () => {
-		setFavorit(!isFavorit);
-		isFavorit = !isFavorited;
+		//setFavorit(!isFavorit);
+		isFavorit = !isFavorit;
 		onFavorit({ id, code, model, price, isFavorit, isAdd });
 	};
 
@@ -50,13 +52,19 @@ function Card({
 			) : (
 				// после загрузки товаров рендерим их
 				<>
-					<div onClick={handleClickFavorit}>
-						<img
-							className={styles.favorit}
-							src={isFavorit ? '/img/liked.svg' : '/img/unliked.png'}
-							alt='like'
-						/>
-					</div>
+					{onFavorit ? (
+						<div onClick={handleClickFavorit}>
+							<img
+								className={styles.favorit}
+								src={isFavorit ? '/img/liked.svg' : '/img/unliked.png'}
+								alt='like'
+							/>
+						</div>
+					) : (
+						<span className={styles.order}>
+							{`Заказ №${orderId}`} <br /> {`от ${date}`}
+						</span>
+					)}
 					<img
 						src={`img/sneakers/${code}.jpg`}
 						alt='img'
@@ -70,12 +78,14 @@ function Card({
 							<b>{price} руб.</b>
 						</div>
 
-						<img
-							className={styles.plus}
-							onClick={handleClickPlus}
-							src={isAdd ? '/img/btn-checked.svg' : '/img/btn-plus.svg'}
-							alt='plus'
-						/>
+						{onPlus && (
+							<img
+								className={styles.plus}
+								onClick={handleClickPlus}
+								src={isAdd ? '/img/btn-checked.svg' : '/img/btn-plus.svg'}
+								alt='plus'
+							/>
+						)}
 					</div>
 				</>
 			)}

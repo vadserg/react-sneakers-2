@@ -5,14 +5,15 @@ import Header from './components/Header';
 import Drawer from './components/Drawer';
 import Home from './pages/Home';
 import Favorits from './pages/Favorits';
+import Orders from './pages/Orders';
 
 export const AppContext = React.createContext({});
 
 function App() {
+	const [cartItems, setCartItems] = React.useState([]);
 	const [cartOpened, setCartOpened] = React.useState(false);
 	const [items, setItems] = React.useState([...Array(8)]);
 	const [favoritItems, setFavoritItems] = React.useState([]);
-	const [cartItems, setCartItems] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
 
 	//единожды при первом рендеринге приложения, инициализируем товары, закладки и корзину из бэка
@@ -39,19 +40,19 @@ function App() {
 			setCartItems(cartResponse.data);
 			setFavoritItems(favoritsResponse.data);
 		}
-
 		fetchData();
 	}, []);
 
 	const addToCart = async obj => {
-		// console.log('addToCart obj: ', obj);
-		const cartItemToRemove = cartItems.find(item => item.code === obj.code);
+		const cartfavoritItemToRemove = cartItems.find(
+			item => item.code === obj.code
+		);
 		const itemToChangeAdd = items.find(item => item.code === obj.code);
 		const favoritItemToChangeAdd = favoritItems.find(
 			item => item.code === obj.code
 		);
 
-		if (cartItemToRemove) {
+		if (cartfavoritItemToRemove) {
 			removeFromCard(obj);
 		} else {
 			itemToChangeAdd.isAdd = true;
@@ -82,7 +83,9 @@ function App() {
 	};
 
 	const removeFromCard = async obj => {
-		const cartItemToRemove = cartItems.find(item => item.code === obj.code);
+		const cartfavoritItemToRemove = cartItems.find(
+			item => item.code === obj.code
+		);
 		const itemToChangeAdd = items.find(item => item.code === obj.code);
 		const favoritItemToChangeAdd = favoritItems.find(
 			item => item.code === obj.code
@@ -98,7 +101,7 @@ function App() {
 			);
 		}
 		await axios.delete(
-			`https://62af03f03bbf46a3521a4c67.mockapi.io/cart/${cartItemToRemove.id}`
+			`https://62af03f03bbf46a3521a4c67.mockapi.io/cart/${cartfavoritItemToRemove.id}`
 		);
 		setCartItems(prev => prev.filter(item => item.code !== obj.code));
 
@@ -115,14 +118,14 @@ function App() {
 
 	const addToFavorit = obj => {
 		// console.log('obj: ', obj);
-		let itemToRemove = favoritItems.find(item => item.code === obj.code);
+		let favoritItemToRemove = favoritItems.find(item => item.code === obj.code);
 		let itemToChangeFavorit = items.find(item => item.code === obj.code);
 
-		if (itemToRemove) {
+		if (favoritItemToRemove) {
 			itemToChangeFavorit.isFavorit = false;
 			axios
 				.delete(
-					`https://62af03f03bbf46a3521a4c67.mockapi.io/favorits/${itemToRemove.id}`
+					`https://62af03f03bbf46a3521a4c67.mockapi.io/favorits/${favoritItemToRemove.id}`
 				)
 				.then(
 					setFavoritItems(prev => prev.filter(item => item.code !== obj.code))
@@ -146,7 +149,16 @@ function App() {
 
 	return (
 		<AppContext.Provider
-			value={{ items, cartItems, favoritItems, setCartOpened, setCartItems }}
+			value={{
+				items,
+				cartItems,
+				favoritItems,
+				addToCart,
+				addToFavorit,
+				isLoading,
+				setCartOpened,
+				setCartItems,
+			}}
 		>
 			<div className='wrapper'>
 				{cartOpened && (
@@ -159,15 +171,14 @@ function App() {
 				)}
 				<Header onClickCart={() => setCartOpened(true)} />
 				<Route path='/' exact>
-					<Home
-						items={items}
-						addToCart={addToCart}
-						addToFavorit={addToFavorit}
-						isLoading={isLoading}
-					/>
+					<Home items={items} />
 				</Route>
-				<Route path='/favorits'>
-					<Favorits addToFavorit={addToFavorit} addToCart={addToCart} />
+				<Route path='/favorits' exact>
+					<Favorits />
+				</Route>
+
+				<Route path='/orders' exact>
+					<Orders />
 				</Route>
 			</div>
 		</AppContext.Provider>

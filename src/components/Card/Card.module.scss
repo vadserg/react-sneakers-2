@@ -19,12 +19,7 @@
 
 	.favorit,
 	.plus {
-		opacity: 0.5;
 		cursor: pointer;
-
-		&:hover {
-			opacity: 1;
-		}
 	}
 
 	p {
@@ -33,6 +28,13 @@
 		font-size: 14px;
 		line-height: 17px;
 		color: #000000;
+	}
+
+	.order {
+		position: absolute;
+		margin-top: -10px;
+		font-size: 14px;
+		font-weight: 500;
 	}
 
 	.cardBottom {

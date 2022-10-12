@@ -1,7 +1,9 @@
 import React from 'react';
+import { AppContext } from '../App';
 import Card from '../components/Card/Card';
 
-function Home({ items, addToCart, addToFavorit, isLoading }) {
+function Home({ items }) {
+	const { addToCart, addToFavorit, isLoading } = React.useContext(AppContext);
 	const [searchValue, setSearchValue] = React.useState('');
 	const handleSearchChange = e => {
 		setSearchValue(e.target.value);

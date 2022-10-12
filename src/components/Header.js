@@ -1,5 +1,15 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from './hooks/useCart';
+
 function Header(props) {
+	const { totalPrice } = useCart(); // достаем totalPrice из кастомного хука
+	// и не тащим сюда весь AppContext
+	// либо выводим totalPrice из AppContext
+	// или считаем total Price из cartItems, который берем из AppContext
+	// const {cartItems} = React.useContext(AppContext);
+	// totalPrice = cartItems.reduce((sum, item) => item.price + sum, 0);
+
 	return (
 		<header>
 			<Link to='/'>
@@ -14,7 +24,7 @@ function Header(props) {
 			<ul className='headerRight'>
 				<li className='cartBtn' onClick={props.onClickCart}>
 					<img src='img/cart.svg' alt='cart' />
-					<span>1205 руб.</span>
+					<span>{totalPrice} руб.</span>
 				</li>
 				<li className='favoritBtn'>
 					<Link to='/favorits'>
@@ -22,7 +32,9 @@ function Header(props) {
 					</Link>
 				</li>
 				<li className='userBtn'>
-					<img src='img/user.svg' alt='user' />
+					<Link to='/orders'>
+						<img src='img/user.svg' alt='user' />
+					</Link>
 				</li>
 			</ul>
 		</header>
